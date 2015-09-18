@@ -14,11 +14,14 @@ function user(shouldBroadcast, host, port, namespace) {
       socket.emit('message', message);
     } else {
       // message will be echoed by server
+      message = new Date();
       socket.send(message);
     }
 
     socket.on('message', function(message) {
-      socket.send(message);
+      setTimeout(function(){
+        socket.send(message);
+      }, 300);
     });
 
     socket.on('broadcastOk', function() {
